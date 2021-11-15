@@ -52,6 +52,14 @@ module.exports = {
 				},
 			},
 			{
+				test: /\.(woff|woff2|eot|ttf|otf)$/i,
+				type: 'asset/resource',
+				generator: {
+					filename: 'css/fonts/[name][ext]',
+				},
+
+			},
+			{
 				test: /\.(sa|sc|c)ss$/,
 				use: [
 					(mode === 'development') ? 'style-loader' : MiniCssExtractPlugin.loader,
@@ -72,13 +80,10 @@ module.exports = {
 				],
 			},
 			{
-				test: /\.(woff|woff2|eot|ttf|otf)$/i,
-				type: 'asset/resource',
-				generator: {
-					filename: 'css/fonts/[name][ext]',
-				},
-
-			}
+				test: /\.pug$/i,
+				loader: 'pug-loader',
+				exclude: /(node-modules|bower-components)/,
+			},
 		]
 	},
 	plugins: [
@@ -87,7 +92,7 @@ module.exports = {
 		}),
 		new HtmlWebpackPlugin({
 			title: 'My WebPack',
-			template: './src/index.html',
+			template: './src/index.pug',
 			inject: 'body',
 			publicPath: 'auto',
 		}),
